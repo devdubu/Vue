@@ -1,0 +1,27 @@
+<div id="app">
+    <!-- 해당 부분에서 렌더링 됩니다.
+    -->
+</div>
+
+<script>
+    const data = {
+        message: 10
+    }
+
+    function render(sth){
+        const div = document.querySelector('#app');
+        div.innerHTML = sth;
+    }
+
+
+    const app = new Proxy(data, {
+        get(){
+            console.log('hi')
+        },
+        set(target, prop, newValue){
+            target[prop] = newValue
+            console.log('값 갱신')
+            render(newValue)
+        }
+    })
+</script>
