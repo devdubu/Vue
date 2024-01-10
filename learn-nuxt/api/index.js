@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 const instance = axios.create({
     baseURL: 'http://localhost:3000'
 })
@@ -16,5 +17,15 @@ function fetchProductsByKeyword(keyword) {
     })    
 }
 
-export{fetchProductById, fetchProductsByKeyword}
+function fetchCartItems(){
+    return instance.get('/carts')
+}
+
+function createCartItem(carItem){
+    return instance.post('/carts', carItem)
+}
+
+
+
+export{fetchProductById, fetchProductsByKeyword, fetchCartItems, createCartItem}
 

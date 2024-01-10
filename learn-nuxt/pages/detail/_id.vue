@@ -11,7 +11,7 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
-        <button type="button" @click="addToCart">Add to Cart</button>
+        <button type="button" @click="addToCart">장바구니에 담기</button>
       </div>
     </div>
   </div>
@@ -19,13 +19,13 @@
 
 <script>
 
-import { fetchProductById } from '@/api/index'
+import { fetchProductById, createCartItem } from '@/api/index'
 
 export default {
 
     async asyncData( {params}) {
-        const reponse = await fetchProductById(params.id);
-        const product = reponse.data
+        const response = await fetchProductById(params.id);
+        const product = response.data
         return {product};
     },
 
@@ -33,6 +33,14 @@ export default {
     //     console.log(this.$route.params.id)
     //     fetchProductById();
     // }
+    methods:{
+      async addToCart(){
+        const response = await createCartItem(this.product)
+        console.log(response.data)
+        this.$store.commit('addCartItem', this.product)
+        this.$router.push('/cart')
+      }
+    }
 }
 </script>
 
